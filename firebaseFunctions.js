@@ -1,4 +1,6 @@
 const admin = require("firebase-admin");
+/* Load in process ENV */
+require("dotenv").config();
 
 const firebaseInit = () => {
   admin.initializeApp({

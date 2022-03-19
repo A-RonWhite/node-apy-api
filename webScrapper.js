@@ -14,8 +14,6 @@ const puppeteerScrapper = async (url, xPath, source) => {
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 
-  let timedOut = false;
-
   try {
     const page = await browser.newPage();
 

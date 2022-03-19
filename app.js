@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 
+/* Load in process ENV */
+require("dotenv").config();
+
 const { puppeteerScrapper, calculateAPY } = require("./webScrapper");
 const { firebaseInit, getFirebaseDoc } = require("./firebaseFunctions");
 const {
@@ -29,7 +32,7 @@ let francAvg;
 let francMonthAvg;
 
 //Run every 15 mins
-cron.schedule("*/1 * * * *", () => {
+cron.schedule("*/15 * * * *", () => {
   let basisAPYDump = getFirebaseDoc("BASIS", db);
   let tulipAPYDump = getFirebaseDoc("Tulip", db);
   let franciumAPYDump = getFirebaseDoc("Francium", db);
@@ -62,7 +65,7 @@ cron.schedule("*/1 * * * *", () => {
 });
 
 //every 5 mins
-cron.schedule("*/1 * * * *", () => {
+cron.schedule("*/5 * * * *", () => {
   franciumAPY = puppeteerScrapper(
     "https://francium.io/app/lend",
     '//*[contains(text(), "BASIS")]/parent::*/parent::*/td[2]',
@@ -103,16 +106,27 @@ app.use(cors(), helmet());
 const port = process.envPORT || 8000;
 
 app.get("/apy", (req, res) => {
-  console.log(`API Key: ${req.query.API_KEY}`);
-
-  if (req.query.API_KEY === env.process.APY_API_KEY) {
+  console.log(req.headers.host);
+  if (req.query.API_KEY === process.env.APY_API_KEY) {
+    /* API Key matched send object */
+    res.send(apyObj);
+  } else {
+    console.log("API key doesn't match");
+    res.status(500);
+    res.send("API Key invalid");
   }
-
-  res.send(apyObj);
 });
 
 app.get("/avg-apy", (req, res) => {
-  res.send(apyAveragesObj);
+  console.log(req.headers.host);
+  if (req.query.API_KEY === process.env.APY_API_KEY) {
+    /* API Key matched send object */
+    res.send(apyAveragesObj);
+  } else {
+    console.log("API key doesn't match");
+    res.status(500);
+    res.send("API Key invalid");
+  }
 });
 
 app.listen(port, () => {
