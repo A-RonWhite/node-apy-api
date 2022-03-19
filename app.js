@@ -103,7 +103,7 @@ cron.schedule("*/5 * * * *", () => {
 var app = express();
 app.use(cors(), helmet());
 
-const port = process.envPORT || 8000;
+const port = process.env.PORT || 8000;
 
 app.get("/apy", (req, res) => {
   console.log(req.headers.host);
