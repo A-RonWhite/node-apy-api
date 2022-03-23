@@ -15,7 +15,7 @@ const calculate30DayAverage = (object) => {
   let length = 0;
 
   //Set 30 day avg start date to compare to key date
-  start30DayAvg = start30DayAvg.setDate(start30DayAvg.getDate() - 15);
+  start30DayAvg = start30DayAvg.setDate(start30DayAvg.getDate() - 7);
   for (const date in object) {
     if (date >= start30DayAvg) {
       apyTotal += parseInt(object[date].integerValue);
