@@ -64,8 +64,8 @@ cron.schedule("*/15 * * * *", () => {
   );
 });
 
-//every 5 mins
-cron.schedule("*/5 * * * *", () => {
+//every 2 mins
+cron.schedule("*/2 * * * *", () => {
   franciumAPY = puppeteerScrapper(
     "https://francium.io/app/lend",
     '//*[contains(text(), "BASIS")]/parent::*/parent::*/td[2]',
