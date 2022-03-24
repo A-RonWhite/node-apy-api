@@ -44,7 +44,7 @@ cron.schedule("*/15 * * * *", () => {
       tulipAvg = calculateTotalAverage(tObjs._fieldsProto);
       tulipMonthAvg = calculate30DayAverage(tObjs._fieldsProto);
       francAvg = calculateTotalAverage(fObjs._fieldsProto);
-      francMonthAvg = calculateTotalAverage(fObjs._fieldsProto);
+      francMonthAvg = calculate30DayAverage(fObjs._fieldsProto);
 
       apyAveragesObj = {
         totalAvg: {
