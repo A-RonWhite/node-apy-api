@@ -101,12 +101,17 @@ cron.schedule("*/5 * * * *", () => {
 });
 
 var app = express();
-app.use(cors(), helmet());
+
+var corsOptions = {
+  origin: "https://distracted-archimedes-9bde0e.netlify.app",
+};
+
+app.use(cors(corsOptions), helmet());
 
 const port = process.env.PORT || 8000;
 
 app.get("/apy", (req, res) => {
-  console.log(req.headers.host);
+  console.log(req.headers.origin);
   if (req.query.API_KEY === process.env.APY_API_KEY) {
     /* API Key matched send object */
     res.send(apyObj);
@@ -118,7 +123,7 @@ app.get("/apy", (req, res) => {
 });
 
 app.get("/avg-apy", (req, res) => {
-  console.log(req.headers.host);
+  console.log(req.headers.origin);
   if (req.query.API_KEY === process.env.APY_API_KEY) {
     /* API Key matched send object */
     res.send(apyAveragesObj);
