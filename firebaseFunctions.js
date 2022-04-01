@@ -20,26 +20,7 @@ const firebaseInit = () => {
 const getFirebaseDoc = async (document, db) => {
   let x = await db.collection("APY15").doc(document).get();
   return x;
-  /* .then((res) => {
-      //console.log(res);
-      return res;
-    })
-    .catch((e) => {
-      console.log("There was an error: ", e);
-    }); */
 };
-
-/* const updateFirebase = (document, field) => {
-  db.collection("APYDump")
-    .doc(document)
-    .get()
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((e) => {
-      console.log("There was an error: ", e);
-    });
-}; */
 
 module.exports = {
   firebaseInit,

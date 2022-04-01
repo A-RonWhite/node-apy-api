@@ -18,18 +18,18 @@ let franciumAPY = 0;
 let tulipAPY = 0;
 let basisAPY = 0;
 
-let vaultTokens;
+let vaultTokens = null;
 let apyObj = {};
 let apyAveragesObj = {};
 
 const db = firebaseInit();
 
-let basisAvg;
-let basisMonthAvg;
-let tulipAvg;
-let tulipMonthAvg;
-let francAvg;
-let francMonthAvg;
+let basisAvg = null;
+let basisMonthAvg = null;
+let tulipAvg = null;
+let tulipMonthAvg = null;
+let francAvg = null;
+let francMonthAvg = null;
 
 //Run every 15 mins
 cron.schedule("*/15 * * * *", () => {
