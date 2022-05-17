@@ -12,6 +12,8 @@ const {
   calculate30DayAverage,
 } = require("./helperFunction");
 
+const { basisProjectedReturns } = require("./solanaFunctions");
+
 const cron = require("node-cron");
 
 let franciumAPY = 0;
@@ -77,22 +79,21 @@ cron.schedule("*/2 * * * *", () => {
     "Tulip: "
   );
 
-  vaultTokens = puppeteerScrapper(
+  /* vaultTokens = puppeteerScrapper(
     "https://solscan.io/account/3sBX8hj4URsiBCSRV26fEHkake295fQnM44EYKKsSs51",
     '//*[@id="root"]/section/main/div/div[2]/div/div[1]/div/div[2]/div[4]/div[2]/text()[1]',
     "Solscan: "
-  );
+  ); */
 
-  Promise.all([franciumAPY, tulipAPY, vaultTokens]).then(
-    ([franciumAPYVal, tulipAPYVal, vaultTokensVal]) => {
+  basisAPY = basisProjectedReturns();
+
+  Promise.all([franciumAPY, tulipAPY, basisAPY]).then(
+    ([franciumAPYVal, tulipAPYVal, basisAPY]) => {
       //Promise.all keeps index based on order of promises called - franc, tulip, vaulttokens
 
       //clean up values
       franciumAPY = Math.floor(franciumAPYVal.replace(/[&\/\\#+()$~%]/g, ""));
       tulipAPY = Math.floor(tulipAPYVal.replace(/[&\/\\#+()$~%]/g, ""));
-
-      //calc basis APY
-      basisAPY = calculateAPY(vaultTokensVal.replace(/,/g, ""));
 
       apyObj = { basis: basisAPY, tulip: tulipAPY, francium: franciumAPY };
       console.log(apyObj);
