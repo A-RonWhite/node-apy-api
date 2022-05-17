@@ -92,8 +92,8 @@ cron.schedule("*/2 * * * *", () => {
       //Promise.all keeps index based on order of promises called - franc, tulip, vaulttokens
 
       //clean up values
-      franciumAPY = Math.floor(franciumAPYVal.replace(/[&\/\\#+()$~%]/g, ""));
-      tulipAPY = Math.floor(tulipAPYVal.replace(/[&\/\\#+()$~%]/g, ""));
+      franciumAPY = Math.round(franciumAPYVal.replace(/[&\/\\#+()$~%]/g, ""));
+      tulipAPY = Math.round(tulipAPYVal.replace(/[&\/\\#+()$~%]/g, ""));
 
       apyObj = { basis: basisAPY, tulip: tulipAPY, francium: franciumAPY };
       console.log(apyObj);
